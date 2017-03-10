@@ -34,7 +34,7 @@ public class SearchPanel extends JPanel {
 	
 	private RelativeLayout rl = new RelativeLayout();
 	
-	private JLabel keywordLabel = new JLabel("�˻�� �Է����ּ���");
+	private JLabel keywordLabel = new JLabel("검색어를 입력해주세요");
 	private JTextField keyword = new JTextField();
 	private ImageIcon deleteBtnImg = new ImageIcon("image/search_delete.png");
 	private JButton deleteBtn = new JButton(deleteBtnImg);
@@ -59,9 +59,9 @@ public class SearchPanel extends JPanel {
 		deleteBtn.addActionListener(new KeywordListener());
 		
 		resultHeader.add("ID");
-		resultHeader.add("����");
-		resultHeader.add("����");
-		resultHeader.add("�޸�");
+		resultHeader.add("종류");
+		resultHeader.add("내용");
+		resultHeader.add("메모");
 		
 		resultTable.setFont(SharedResource.REGULAR_FONT);
 		resultTable.setRowHeight(36);
@@ -120,11 +120,11 @@ public class SearchPanel extends JPanel {
 				
 				try {
 					String sql;
-					sql = "(SELECT ID, '�ּ�' as '����', address as '����', memo as '�޸�' "
+					sql = "(SELECT ID, '주소' as '종류', address as '내용', memo as '메모' "
 							+ "FROM address "
 							+ "WHERE address like '%" + keywordTmp + "%' and activated = 'Y') union "
-							+ "(SELECT `AddressID` as 'ID', '��ȣ' as '����', concat(`Address`, ' / ', `PhoneNum`) as '����', `Memo` as '�޸�' FROM ((SELECT `ID` as 'PhoneID', `PhoneNum`, `AddressID` FROM `PhoneNum` WHERE `PhoneNum` like '%" + keywordTmp + "%' and `activated` = 'Y') as a NATURAL JOIN (SELECT `ID` as 'AddressID', `Address`, `Memo` FROM `Address` WHERE `Activated` = 'Y') as b));";
-							//+ "(SELECT AddressID as 'ID', '��ȣ' as '����', phonenum as '����', memo as '�޸�' "
+							+ "(SELECT `AddressID` as 'ID', '번호' as '종류', concat(`Address`, ' / ', `PhoneNum`) as '내용', `Memo` as '메모' FROM ((SELECT `ID` as 'PhoneID', `PhoneNum`, `AddressID` FROM `PhoneNum` WHERE `PhoneNum` like '%" + keywordTmp + "%' and `activated` = 'Y') as a NATURAL JOIN (SELECT `ID` as 'AddressID', `Address`, `Memo` FROM `Address` WHERE `Activated` = 'Y') as b));";
+							//+ "(SELECT AddressID as 'ID', '번호' as '종류', phonenum as '내용', memo as '메모' "
 							//+ "FROM (SELECT phonenum join `address` ) "
 							//+ "WHERE phonenum like '%" + keywordTmp + "%' and "
 							//+ "(SELECT `activated` FROM `address` WHERE `address`.`ID` = `phonenum`.`AddressID`) = 'Y');";

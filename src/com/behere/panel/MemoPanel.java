@@ -37,7 +37,7 @@ public class MemoPanel extends JPanel {
 	
 	private RelativeLayout rl = new RelativeLayout();
 	
-	private JLabel memoListLabel = new JLabel("�޸�");
+	private JLabel memoListLabel = new JLabel("메모");
 	private JTextField newMemoName = new JTextField();
 	private ImageIcon plusSmallIcon = new ImageIcon("image/shared_plus_small.png");
 	private JButton addMemoBtn = new JButton(plusSmallIcon);

@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
  
 /**
- * ��¥ ��� ���� ��ɵ��� ��Ƴ��� ��ƿ��Ƽ Ŭ����
+ * 날짜 계산 관련 기능들을 모아놓은 유틸리티 클래스
  * 
- * ������ 4���� ���Ŀ� ���Ͽ� ��ȣ ��ȯ �� ���� �ð��� ��ȯ�Ѵ�.
+ * 다음의 4가지 형식에 대하여 상호 변환 및 현재 시각을 반환한다.
  * SimpleString - yyyy/MM/dd
  * UserTypedString - ??
  * Calendar
@@ -20,7 +20,7 @@ import java.util.Calendar;
  */
 public class DateUtil
 {
-	private static String[] dayString = {"��","��","ȭ","��","��","��","��"};
+	private static String[] dayString = {"일","월","화","수","목","금","토"};
 	
 	//
 	// Current Time(4)
@@ -112,7 +112,7 @@ public class DateUtil
 	}
 	
 	/**
-	 * �־��� Milliseconds �紵�� �ð��������� ������� ���ʰ� �������� ����Ѵ�.
+	 * 주어진 Milliseconds 당뉘의 시각에서부터 현재까지 몇초가 지났는지 계산한다.
 	 * 
 	 * @param timeValue
 	 * @return

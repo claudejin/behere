@@ -43,10 +43,10 @@ public class AddressPanel extends JPanel {
 	private RelativeLayout rl = new RelativeLayout();
 	
 	//Left-side
-	private JLabel IDLabel = new JLabel("����ID");
-	private JLabel addressLabel = new JLabel("�ּ�");
-	private JLabel phoneListLabel = new JLabel("��ȣ");
-	private JLabel memoLabel = new JLabel("�޸�");
+	private JLabel IDLabel = new JLabel("고유ID");
+	private JLabel addressLabel = new JLabel("주소");
+	private JLabel phoneListLabel = new JLabel("번호");
+	private JLabel memoLabel = new JLabel("메모");
 	private JTextField ID = new JTextField();
 	private JTextArea address = new JTextArea();
 	private JScrollPane spAddress = new JScrollPane(address);
@@ -74,14 +74,14 @@ public class AddressPanel extends JPanel {
 	private JButton removePhoneBtn = new JButton(minusSmallIcon);
 	private JButton removeOrderBtn = new JButton(minusSmallIcon);
 	
-	private JLabel regdateLabel = new JLabel("�����");
+	private JLabel regdateLabel = new JLabel("등록일");
 	private JTextField regdate = new JTextField();
-	private JLabel couponAccLabel = new JLabel("��������");
+	private JLabel couponAccLabel = new JLabel("쿠폰누적");
 	private JTextField couponAcc = new JTextField();
-	private JLabel couponPreLabel = new JLabel("����");
+	private JLabel couponPreLabel = new JLabel("현재");
 	private JTextField couponPre = new JTextField();
 	
-	private JLabel orderListLabel = new JLabel("�ֹ�����");
+	private JLabel orderListLabel = new JLabel("주문내역");
 	private Vector<String> header = new Vector<String>();
 	private Vector<Vector<String>> data = new Vector<Vector<String>>();
 	private DefaultTableModel orderTableModel = new DefaultTableModel(data, header) {
@@ -104,7 +104,7 @@ public class AddressPanel extends JPanel {
 	
 	private JTable payTable = new JTable(payTableModel);
 	private JScrollPane spPayTable = new JScrollPane(payTable);
-	private JLabel paySumLabel = new JLabel("�հ�");
+	private JLabel paySumLabel = new JLabel("합계");
 	private JTextField paySum = new JTextField();
 	private ImageIcon orderCancelIcon = new ImageIcon("image/order_cancel.png");
 	private JButton orderCancelBtn = new JButton(orderCancelIcon);
@@ -149,15 +149,15 @@ public class AddressPanel extends JPanel {
 		couponPre.setFont(SharedResource.REGULAR_FONT);
 		
 		orderListLabel.setFont(SharedResource.REGULAR_FONT);
-		header.add("����");
+		header.add("순번");
 		header.add("ID");
 		header.add("PhoneID");
-		header.add("��¥");
-		header.add("����");
-		header.add("����");
-		payHeader.add("ǰ��");
-		payHeader.add("��");
-		payHeader.add("����");
+		header.add("날짜");
+		header.add("내용");
+		header.add("가격");
+		payHeader.add("품목");
+		payHeader.add("수");
+		payHeader.add("가격");
 		
 		orderTable.setFont(SharedResource.REGULAR_FONT);
 		orderTable.setRowHeight(36);
@@ -290,7 +290,7 @@ public class AddressPanel extends JPanel {
 			payTable.getColumnModel().getColumn(1).setMaxWidth(20); //Count
 			payTable.getColumnModel().getColumn(2).setMaxWidth(75); //Price
 			payTable.getColumnModel().getColumn(2).setMinWidth(75); //Price
-			paySum.setText("0��");
+			paySum.setText("0원");
 			
 			menuList.setVisible(true);
 			spPayTable.setVisible(true);
@@ -380,7 +380,7 @@ public class AddressPanel extends JPanel {
 		data.clear();
 		
 		orderTableModel.setDataVector(data, header);
-		orderTable.getColumnModel().getColumn(0).setMaxWidth(30); //����
+		orderTable.getColumnModel().getColumn(0).setMaxWidth(30); //순번
 		orderTable.getColumnModel().getColumn(1).setMaxWidth(0); //ID
 		orderTable.getColumnModel().getColumn(2).setMaxWidth(0); //PhoneID
 		orderTable.getColumnModel().getColumn(3).setMinWidth(180); //Datetime
@@ -433,7 +433,7 @@ public class AddressPanel extends JPanel {
 					}
 					
 					orderTableModel.setDataVector(data, header);
-					orderTable.getColumnModel().getColumn(0).setMaxWidth(30); //����
+					orderTable.getColumnModel().getColumn(0).setMaxWidth(30); //순번
 					orderTable.getColumnModel().getColumn(1).setMaxWidth(0); //ID
 					orderTable.getColumnModel().getColumn(2).setMaxWidth(0); //PhoneID
 					orderTable.getColumnModel().getColumn(3).setMinWidth(200); //Datetime
@@ -442,7 +442,7 @@ public class AddressPanel extends JPanel {
 					orderTable.getColumnModel().getColumn(5).setMaxWidth(75); //TotalPrice
 					rs2.close();
 				} else {
-					JOptionPane.showMessageDialog(null, "����: ��ġ�ϴ� �ּҰ� �����ϴ�!");
+					JOptionPane.showMessageDialog(null, "에러: 일치하는 주소가 없습니다!");
 				}
 				rs.close();
 			} catch (SQLException e) {
@@ -460,13 +460,13 @@ public class AddressPanel extends JPanel {
 	private class CouponUseListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (memo.getText().trim().equals("")) {
-				memo.setText(DateUtil.convCalendarToUserTypedString(Calendar.getInstance(), "yyyy-MM-dd �������"));
+				memo.setText(DateUtil.convCalendarToUserTypedString(Calendar.getInstance(), "yyyy-MM-dd 쿠폰사용"));
 			} else {
-				memo.setText(memo.getText() + "\n" + DateUtil.convCalendarToUserTypedString(Calendar.getInstance(), "yyyy-MM-dd �������"));
+				memo.setText(memo.getText() + "\n" + DateUtil.convCalendarToUserTypedString(Calendar.getInstance(), "yyyy-MM-dd 쿠폰사용"));
 			}
 			
 			if (address.getText().trim().equals(""))
-				address.setText("�� �ּ�");
+				address.setText("새 주소");
 			saveAddress();
 			setAddressInfo(getAddressID());
 		}
@@ -477,7 +477,7 @@ public class AddressPanel extends JPanel {
 			if (e.getSource().equals(saveBtn))
 				mfc.switchPanel(mfc.SEARCH_PANEL, null);
 			else if (e.getSource().equals(removeBtn)) {
-				int confirm = JOptionPane.showConfirmDialog(null, address.getText() + "\n�� �ּҸ� ������ �����Ͻðڽ��ϱ�?", "Bareng", JOptionPane.YES_NO_OPTION);
+				int confirm = JOptionPane.showConfirmDialog(null, address.getText() + "\n이 주소를 정말로 삭제하시겠습니까?", "Bareng", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
 					try {
 						dbConn.executeUpdate("UPDATE `address` SET `activated` = 'N' WHERE `ID` = '" + getAddressID() + "';");
@@ -512,7 +512,7 @@ public class AddressPanel extends JPanel {
 					}
 					
 					if (address.getText().trim().equals(""))
-						address.setText("�� �ּ�");
+						address.setText("새 주소");
 					saveAddress();
 					setAddressInfo(getAddressID());
 				}
@@ -536,11 +536,11 @@ public class AddressPanel extends JPanel {
 				}
 			} else if (e.getSource().equals(removePhoneBtn)) {
 				if (phoneList.getSelectedValue() == null) {
-					JOptionPane.showMessageDialog(null, "������ ��ȣ�� �������ּ���");
+					JOptionPane.showMessageDialog(null, "삭제할 번호를 선택해주세요");
 					return ;
 				}
 				
-				int confirm = JOptionPane.showConfirmDialog(null, phoneList.getSelectedValue() + "\n�� ��ȣ�� ������ �����Ͻðڽ��ϱ�?", "Junto", JOptionPane.YES_NO_OPTION);
+				int confirm = JOptionPane.showConfirmDialog(null, phoneList.getSelectedValue() + "\n이 번호를 정말로 삭제하시겠습니까?", "Junto", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
 					try {
 						dbConn.executeUpdate("UPDATE `phonenum` SET `activated` = 'N' WHERE `PhoneNum` = '" + phoneList.getSelectedValue() + "' and `AddressID` = " + getAddressID() + ";");
@@ -560,23 +560,23 @@ public class AddressPanel extends JPanel {
 				setLayoutMode(ORDER_NEW);
 				MenuInfo mi = new MenuInfo();
 				mi.setID(16);
-				mi.setName("��޷�");
-				mi.setShort("���");
+				mi.setName("배달료");
+				mi.setShort("배달");
 				mi.setPrice(500);
 				mi.setType(1);
 				ml.actionPerformed(new ActionEvent(mi, MouseEvent.BUTTON1, ""));
 			} else if (e.getSource().equals(editOrderBtn)) {
 				int row = orderTable.getSelectedRow(); 
 				if (row == -1) {
-					JOptionPane.showMessageDialog(null, "������ �ֹ������� �������ּ���");
+					JOptionPane.showMessageDialog(null, "수정할 주문내역을 선택해주세요");
 					return ;
 				}
 				
-				String content = JOptionPane.showInputDialog(null, "������ �ֹ� ������ �Է��ϼ���", orderTableModel.getValueAt(row, 4));
+				String content = JOptionPane.showInputDialog(null, "수정할 주문 내역을 입력하세요", orderTableModel.getValueAt(row, 4));
 				if (content == null)
 					content = orderTableModel.getValueAt(row, 4).toString();
 				
-				String price = JOptionPane.showInputDialog(null, "������ ������ �Է��ϼ���\n���ڸ� �Է��ϼ���!", orderTableModel.getValueAt(row, 5));
+				String price = JOptionPane.showInputDialog(null, "수정할 가격을 입력하세요\n숫자만 입력하세요!", orderTableModel.getValueAt(row, 5));
 				if (price == null)
 					price = orderTableModel.getValueAt(row, 5).toString();
 				
@@ -590,7 +590,7 @@ public class AddressPanel extends JPanel {
 				} catch (SQLException sqle) {
 					sqle.printStackTrace();
 				} catch (NumberFormatException nfe) {
-					JOptionPane.showMessageDialog(null, "���ݿ��� ���ڸ� �Է��ϼ���!");
+					JOptionPane.showMessageDialog(null, "가격에는 숫자만 입력하세요!");
 				}
 				
 				setAddressInfo(getAddressID());
@@ -598,11 +598,11 @@ public class AddressPanel extends JPanel {
 			} else if (e.getSource().equals(removeOrderBtn)) {
 				int row = orderTable.getSelectedRow(); 
 				if (row == -1) {
-					JOptionPane.showMessageDialog(null, "������ �ֹ������� �������ּ���");
+					JOptionPane.showMessageDialog(null, "삭제할 주문내역을 선택해주세요");
 					return ;
 				}
 				
-				int confirm = JOptionPane.showConfirmDialog(null, orderTableModel.getValueAt(row, 3) + " " + orderTableModel.getValueAt(row, 4) + "\n�� �ֺ� ������ ������ �����Ͻðڽ��ϱ�?", "Junto", JOptionPane.YES_NO_OPTION);
+				int confirm = JOptionPane.showConfirmDialog(null, orderTableModel.getValueAt(row, 3) + " " + orderTableModel.getValueAt(row, 4) + "\n이 주분 내역을 정말로 삭제하시겠습니까?", "Junto", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
 					try {
 						dbConn.executeUpdate("UPDATE `order` SET `activated` = 'N' WHERE `ID` = " + orderTableModel.getValueAt(row, 1) + " and `AddressID` = " + getAddressID() + ";");
@@ -664,7 +664,7 @@ public class AddressPanel extends JPanel {
 			payTable.getColumnModel().getColumn(2).setMaxWidth(75); //Price
 			payTable.getColumnModel().getColumn(2).setMinWidth(75); //Price
 			
-			paySum.setText(totalPrice + "��");
+			paySum.setText(totalPrice + "원");
 		}
 	}
 	
@@ -681,11 +681,11 @@ public class AddressPanel extends JPanel {
 					for (Vector<String> item : payData) {
 						rs = dbConn.executeQuery("SELECT `short`, `MenuType` FROM `menu` WHERE `name` = '" + item.get(0) + "';");
 						rs.next();
-						if (!rs.getString(1).equals("���")) {
+						if (!rs.getString(1).equals("배달")) {
 							content += rs.getString(1);
 							content += item.get(1);
 						}
-						if (rs.getInt(2) == 1 && !(item.get(0).equals("�Ĺ�") || item.get(0).equals("���") || item.get(0).equals("����")))
+						if (rs.getInt(2) == 1 && !(item.get(0).equals("후반") || item.get(0).equals("양반") || item.get(0).equals("간반")))
 							couponIssue += Integer.parseInt(item.get(1));
 						
 						rs.close();
@@ -708,7 +708,7 @@ public class AddressPanel extends JPanel {
 					////////////////////
 					// Temporary Work //
 					////////////////////
-					if (paySum.getText().endsWith("��"))
+					if (paySum.getText().endsWith("원"))
 						totalPrice = Integer.parseInt(paySum.getText().substring(0, paySum.getText().length() - 1));
 					else
 						totalPrice = Integer.parseInt(paySum.getText());
@@ -722,7 +722,7 @@ public class AddressPanel extends JPanel {
 					ps.close();
 					
 					if (address.getText().trim().equals(""))
-						address.setText("�� �ּ�");
+						address.setText("새 주소");
 					saveAddress();
 					setAddressInfo(getAddressID());
 				} catch (SQLException sqle) {

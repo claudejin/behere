@@ -48,9 +48,9 @@ public class CalendarPanel extends JPanel {
 	//Left-side
 	private JPanel changePanel = new JPanel(), datePanel = new JPanel();
 	private JSpinner changeYear;
-	private JLabel changeYearLabel =  new JLabel("��");
+	private JLabel changeYearLabel =  new JLabel("년");
 	private JComboBox<String> changeMonth;
-	private JLabel changeMonthLabel = new JLabel("��");
+	private JLabel changeMonthLabel = new JLabel("월");
 	private ArrayList<JLabel> dateList = new ArrayList<JLabel>();
 	private JLabel prevDate;
 	private ImageIcon dateCircleIcon = new ImageIcon("image/calendar_circle.png");
@@ -58,7 +58,7 @@ public class CalendarPanel extends JPanel {
 	private JScrollPane spDailyMemo = new JScrollPane(dailyMemo);
 	
 	//Right-side
-	private JLabel orderListLabel = new JLabel("----�� --�� --�� �ֹ�����");
+	private JLabel orderListLabel = new JLabel("----년 --월 --일 주문내역");
 	private ImageIcon todayIcon = new ImageIcon("image/calendar_today.png");
 	private JButton todayBtn = new JButton(todayIcon);
 	private Vector<String> orderListHeader = new Vector<String>();
@@ -115,7 +115,7 @@ public class CalendarPanel extends JPanel {
 		changePanel.add(changeMonthLabel);
 		
 		datePanel.setLayout(new GridLayout(7, 7));
-		String[] weekName = {"��", "��", "ȭ", "��", "��", "��", "��"};
+		String[] weekName = {"일", "월", "화", "수", "목", "금", "토"};
 		JLabel dateTmp;
 		for (int i = 0; i < weekName.length; i++)
 			datePanel.add(createDateLabel(weekName[i], Color.LIGHT_GRAY));
@@ -134,12 +134,12 @@ public class CalendarPanel extends JPanel {
 	    dailyMemo.setLineWrap(true);
 		
 		orderListLabel.setFont(SharedResource.REGULAR_FONT);
-		orderListHeader.add("����");
+		orderListHeader.add("순번");
 		orderListHeader.add("ID");
-		orderListHeader.add("�ð�");
-		orderListHeader.add("�ּ�");
-		orderListHeader.add("����");
-		orderListHeader.add("����");
+		orderListHeader.add("시간");
+		orderListHeader.add("주소");
+		orderListHeader.add("내용");
+		orderListHeader.add("가격");
 		
 		orderListTable.addMouseListener(new OrderClickListener());
 		orderListTable.setFont(SharedResource.REGULAR_FONT);
@@ -368,7 +368,7 @@ public class CalendarPanel extends JPanel {
 			sqle.printStackTrace();
 		}
 		
-		orderListLabel.setText(DateUtil.convCalendarToUserTypedString(cal, "yyyy�� MM�� dd��") + "        �հ� : \\" + totalSum + "��");
+		orderListLabel.setText(DateUtil.convCalendarToUserTypedString(cal, "yyyy년 MM월 dd일") + "        합계 : \\" + totalSum + "원");
 	}
 	
 	private class YearChangeListener implements ChangeListener {

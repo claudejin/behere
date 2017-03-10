@@ -26,8 +26,8 @@ public class MenuListPanel extends JPanel {
 	private final static int DRINKS = 3;
 	private final static int OPTION = 4;
 	
-	private Font sharedFont = new Font("������� ExtraBold", Font.PLAIN, 19);
-	private Font sharedLargeFont = new Font("������� ExtraBold", Font.PLAIN, 36);
+	private Font sharedFont = new Font("나눔고딕 ExtraBold", Font.PLAIN, 19);
+	private Font sharedLargeFont = new Font("나눔고딕 ExtraBold", Font.PLAIN, 36);
 	
 	private DBConnector dbConn = SharedResource.getDBConnector();
 	
@@ -95,7 +95,7 @@ public class MenuListPanel extends JPanel {
 		} else if (type == SOURCES || type == DRINKS) {
 			rtnBtn.setPreferredSize(new Dimension(70, 65));
 			rtnBtn.setBackground(Color.LIGHT_GRAY);
-			if (rtnBtn.getText().startsWith("��"))
+			if (rtnBtn.getText().startsWith("작"))
 					rtnBtn.setFont(sharedFont);
 		}
 		rtnBtn.addMouseListener(mbl);
